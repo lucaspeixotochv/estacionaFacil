@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id   String @id @default(uuid())
+  name String
+  User User[]
+}
+
+model User {
+  id       String @id @default(uuid())
+  role_id  String
+  email    String @unique
+  name     String
+  password String
+
+  role        Role          @relation(fields: [role_id], references: [id])
+  CreditCard  CreditCard[]
+  Reservation Reservation[]
+}
+
+model CreditCard {
+  id         String   @id @default(uuid())
+  user_id    String
+  cardNumber String
+  cvv        String
+  expiryDate String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+}
+
+model Car {
+  id             String        @id @default(uuid())
+  brand          String
+  year           String
+  name           String
+  color          String
+  licesnse_plate String
+  price          Float
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now()) @updatedAt
+  Reservation    Reservation[]
+}
+
+model Reservation {
+  id        String   @id @default(uuid())
+  user_id   String
+  car_id    String
+  startDate DateTime
+  endDate   DateTime
+  price     Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id])
+  car  Car  @relation(fields: [car_id], references: [id])
+}
