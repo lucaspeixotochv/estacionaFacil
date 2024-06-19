@@ -1,0 +1,25 @@
+<div class="max-w-4xl mx-auto mt-8">
+  <h2 class="text-2xl font-bold mb-4">Meus Aluguéis</h2>
+  <div *ngIf="rentals.length === 0" class="text-gray-500 text-center">
+    Não há aluguéis disponíveis.
+  </div>
+  <ul *ngIf="rentals.length > 0" class="divide-y divide-gray-200">
+    <li
+      *ngFor="let rent of rentals"
+      class="py-4 flex justify-between items-center"
+    >
+      <div class="flex flex-col">
+        <span class="font-semibold">{{ rent.car.name }}</span>
+        <span class="text-sm text-gray-500"
+          >{{ rent.startDate | date : "dd/MM/yyyy" }} -
+          {{ rent.endDate | date : "dd/MM/yyyy" }}</span
+        >
+      </div>
+      <div>
+        <span class="text-gray-600"
+          >R$ {{ rent.price | currency : "BRL" }}</span
+        >
+      </div>
+    </li>
+  </ul>
+</div>

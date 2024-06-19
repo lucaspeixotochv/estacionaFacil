@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Car } from 'src/app/shared/@types/car.interface';
 
 @Component({
   selector: 'app-home',
@@ -6,27 +7,47 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-  carros: any[] = [
+  cars: Car[] = [
     {
-      modelo: 'Ferrari 488',
-      imagem:
-        'https://i0.statig.com.br/bancodeimagens/77/fc/za/77fczaumd22rjbqfgi4h98axz.jpg',
-      descricao: 'Uma descrição da Ferrari 488.',
-      preco: 'R$ 500.000',
+      id: '123e4567-e89b-12d3-a456-426614174001',
+      brand: 'Toyota',
+      year: '2021',
+      name: 'Camry',
+      color: 'White',
+      description:
+        'A reliable and fuel-efficient midsize sedan with a comfortable interior.',
+      license_plate: 'XYZ-9876',
+      price: 25000.0,
+      image: 'https://tm.ibxk.com.br/2016/10/27/27160539773875.jpg?ims=750x',
+      createdAt: new Date('2021-01-01T00:00:00Z'),
+      updatedAt: new Date('2021-01-01T00:00:00Z'),
     },
     {
-      modelo: 'Lamborghini Huracan',
-      imagem:
-        'https://i0.statig.com.br/bancodeimagens/77/fc/za/77fczaumd22rjbqfgi4h98axz.jpg',
-      descricao: 'Uma descrição da Lamborghini Huracan.',
-      preco: 'R$ 600.000',
+      id: '223e4567-e89b-12d3-a456-426614174002',
+      brand: 'Honda',
+      year: '2019',
+      name: 'Civic',
+      color: 'Black',
+      description: 'A compact car known for its performance and efficiency.',
+      license_plate: 'ABC-1234',
+      price: 18000.0,
+      image: 'https://tm.ibxk.com.br/2016/10/27/27160539773875.jpg?ims=750x',
+      createdAt: new Date('2019-03-15T00:00:00Z'),
+      updatedAt: new Date('2019-03-15T00:00:00Z'),
     },
     {
-      modelo: 'Porsche 911',
-      imagem:
-        'https://i0.statig.com.br/bancodeimagens/77/fc/za/77fczaumd22rjbqfgi4h98axz.jpg',
-      descricao: 'Uma descrição do Porsche 911.',
-      preco: 'R$ 450.000',
+      id: '323e4567-e89b-12d3-a456-426614174003',
+      brand: 'Tesla',
+      year: '2022',
+      name: 'Model 3',
+      color: 'Red',
+      description:
+        'A modern electric vehicle with advanced technology and impressive range.',
+      license_plate: 'TESLA-3',
+      price: 45000.0,
+      image: 'https://tm.ibxk.com.br/2016/10/27/27160539773875.jpg?ims=750x',
+      createdAt: new Date('2022-05-20T00:00:00Z'),
+      updatedAt: new Date('2022-05-20T00:00:00Z'),
     },
   ];
 }

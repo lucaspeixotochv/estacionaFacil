@@ -1,0 +1,53 @@
+<div class="max-w-md mx-auto mt-8 p-6 bg-white rounded shadow-md">
+  <h2 class="text-2xl font-bold mb-4">Pagar pelo Aluguel</h2>
+  <form [formGroup]="pagamentoForm" (ngSubmit)="pagar()">
+    <mat-form-field class="w-full mb-4">
+      <mat-label>Número do Cartão</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="numeroCartao"
+        placeholder="0000 0000 0000 0000"
+      />
+      <mat-error
+        *ngIf="
+          pagamentoForm.get('numeroCartao')?.invalid &&
+          pagamentoForm.get('numeroCartao')?.touched
+        "
+      >
+        Número do Cartão inválido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-full mb-4">
+      <mat-label>CVV</mat-label>
+      <input matInput type="text" formControlName="cvv" placeholder="123" />
+      <mat-error
+        *ngIf="
+          pagamentoForm.get('cvv')?.invalid && pagamentoForm.get('cvv')?.touched
+        "
+      >
+        CVV inválido
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-full mb-4">
+      <mat-label>Data de Expiração</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="dataExpiracao"
+        placeholder="MM/YY"
+      />
+      <mat-error
+        *ngIf="
+          pagamentoForm.get('dataExpiracao')?.invalid &&
+          pagamentoForm.get('dataExpiracao')?.touched
+        "
+      >
+        Data de Expiração inválida (MM/YY)
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button type="submit" color="primary" class="w-full mt-4">
+      Pagar
+    </button>
+  </form>
+</div>

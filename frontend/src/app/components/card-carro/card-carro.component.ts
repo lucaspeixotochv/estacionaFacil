@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ICar } from './@types/car.type';
+import { Router } from '@angular/router';
+import { Car } from 'src/app/shared/@types/car.interface';
 
 @Component({
   selector: 'app-card-carro',
@@ -7,5 +8,13 @@ import { ICar } from './@types/car.type';
   styleUrls: ['./card-carro.component.scss'],
 })
 export class CardCarroComponent {
-  @Input() carro: any; // Propriedade de entrada para receber dados do carro
+  @Input() car: Car = {} as Car;
+
+  constructor(private router: Router) {}
+
+  goToPage(page: string) {
+    this.router.navigate([page], {
+      state: { car: this.car },
+    });
+  }
 }
