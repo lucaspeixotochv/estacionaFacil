@@ -7,5 +7,5 @@ import { ICar } from './@types/car.type';
   styleUrls: ['./card-carro.component.scss'],
 })
 export class CardCarroComponent {
-  @Input() car: ICar = {} as ICar;
+  @Input() carro: any; // Propriedade de entrada para receber dados do carro
 }

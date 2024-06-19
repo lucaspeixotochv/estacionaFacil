@@ -1,0 +1,9 @@
+<section class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-4">Carros em Destaque</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <app-card-carro
+      *ngFor="let carro of carros"
+      [carro]="carro"
+    ></app-card-carro>
+  </div>
+</section>
