@@ -12,8 +12,41 @@
       >Preço: {{ car.price | currency : "BRL" }}</span
     >
   </div>
+  <form class="px-6 pt-4 pb-2" [formGroup]="form">
+    <mat-form-field class="w-full">
+      <mat-label>Data de retirada</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        formControlName="startDate"
+        [min]="minDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Data de devolução</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker2"
+        formControlName="returnDate"
+        [min]="minDate"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <span>
+      Observação: O horário de retirada e devolução é sempre das 8h às 18h.
+    </span>
+  </form>
   <div class="px-6 pt-4 pb-2">
-    <button mat-flat-button color="primary" (click)="alugarCarro()">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="alugarCarro()"
+      [disabled]="!form.valid"
+    >
       Alugar Agora
     </button>
   </div>

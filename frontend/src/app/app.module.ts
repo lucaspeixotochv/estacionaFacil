@@ -7,7 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { CardCarroComponent } from './components/card-carro/card-carro.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { LoginComponent } from './modules/auth/login/login.component';
@@ -21,6 +21,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MyRentalsComponent } from './modules/my-rentals/my-rentals.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
 import { AuthService } from './shared/services/auth.service';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { CarService } from './shared/services/car.service';
+import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+} from '@angular/material/core';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -37,7 +48,10 @@ import { AuthService } from './shared/services/auth.service';
     SignupComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -45,8 +59,39 @@ import { AuthService } from './shared/services/auth.service';
     MatInputModule,
     MatFormFieldModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
   ],
-  providers: [ToastService],
+  providers: [
+    provideNgxMask(),
+    ToastService,
+    CarService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'pt-BR',
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: {
+        parse: {
+          dateInput: 'LL',
+        },
+        display: {
+          dateInput: 'DD/MM/YYYY',
+          monthYearLabel: 'MMM YYYY',
+          dateA11yLabel: 'LL',
+          monthYearA11yLabel: 'MMMM YYYY',
+        },
+      },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

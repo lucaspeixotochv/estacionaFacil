@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Car } from 'src/app/shared/@types/car.interface';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
@@ -8,19 +9,43 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnInit {
-  pagamentoForm: FormGroup = {} as FormGroup;
+  pagamentoForm: FormGroup = this.fb.group({
+    numeroCartao: ['', [Validators.required]],
+    cvv: ['', [Validators.required]],
+    dataExpiracao: ['', [Validators.required]],
+  });
 
-  constructor(private fb: FormBuilder, private toastService: ToastService) {}
+  car: Car = {} as Car;
+  informations: any = {};
+
+  showCardFlag = false;
+
+  constructor(private fb: FormBuilder, private toastService: ToastService) {
+    this.pagamentoForm.controls['numeroCartao'].valueChanges.subscribe(
+      (value) => {
+        if (value.length > 4) {
+          this.showCardFlag = true;
+        } else {
+          this.showCardFlag = false;
+        }
+      }
+    );
+  }
 
   ngOnInit(): void {
-    this.pagamentoForm = this.fb.group({
-      numeroCartao: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]],
-      cvv: ['', [Validators.required, Validators.pattern(/^\d{3}$/)]],
-      dataExpiracao: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{2}\/\d{2}$/)],
-      ],
-    });
+    this.car = history.state.car;
+    this.informations = history.state.informations;
+
+    const differenceInDays = this.differenceInDays();
+
+    this.car.price = this.car.price * differenceInDays;
+  }
+
+  differenceInDays(): number {
+    const startDate = new Date(this.informations.startDate);
+    const returnDate = new Date(this.informations.returnDate);
+    const differenceInTime = returnDate.getTime() - startDate.getTime();
+    return differenceInTime / (1000 * 3600 * 24);
   }
 
   pagar(): void {

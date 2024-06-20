@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Car } from 'src/app/shared/@types/car.interface';
 
@@ -10,17 +11,22 @@ import { Car } from 'src/app/shared/@types/car.interface';
 export class CarDetailsComponent implements OnInit {
   car: Car = {} as Car;
 
-  constructor(private router: Router) {}
+  form: FormGroup = this.fb.group({
+    startDate: ['', Validators.required],
+    returnDate: ['', Validators.required],
+  });
+
+  minDate = new Date();
+
+  constructor(private router: Router, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.car = history.state.car;
   }
 
   alugarCarro(): void {
-    //Verificar se está logado
-    console.log('Carro alugado:', this.car.name);
     this.router.navigate(['/payment'], {
-      state: { car: this.car },
+      state: { car: this.car, informations: this.form.value },
     });
   }
 }

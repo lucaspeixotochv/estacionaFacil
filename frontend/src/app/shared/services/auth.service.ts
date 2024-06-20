@@ -22,6 +22,9 @@ export class AuthService {
     const response = await lastValueFrom(
       this.http.post<ResponseApi>(`${this.baseUrl}/signin`, body)
     );
+
+    console.log(response);
+
     if (response.success) {
       this.setToken(response.data.access_token);
     }

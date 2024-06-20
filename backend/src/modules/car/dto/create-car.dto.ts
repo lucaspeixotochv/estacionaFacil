@@ -19,9 +19,17 @@ export class CreateCarDto {
 
   @IsString()
   @IsNotEmpty()
-  licesnse_plate: string;
+  license_plate: string;
 
   @IsNumber()
   @IsNotEmpty()
   price: number;
+
+  @IsString()
+  @IsNotEmpty()
+  image: string;
+
+  @IsString()
+  @IsNotEmpty()
+  description: string;
 }

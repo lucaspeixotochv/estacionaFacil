@@ -16,9 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    // private authService: AuthService,
     private router: Router,
-    // private authService: AuthService,
+    private authService: AuthService,
     private toastService: ToastService
   ) {}
 
@@ -36,12 +35,12 @@ export class LoginComponent implements OnInit {
         email: username,
         password,
       };
-      // const response = await this.authService.login(body);
+      const response = await this.authService.login(body);
 
-      // if (!response.success) {
-      //   this.toastService.showError(response.message);
-      //   return;
-      // }
+      if (!response.success) {
+        this.toastService.showError(response.message);
+        return;
+      }
 
       this.toastService.showSuccess('Login efetuado com sucesso');
     } catch (error) {
