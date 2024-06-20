@@ -20,6 +20,7 @@ import { ToastService } from './shared/services/toast.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MyRentalsComponent } from './modules/my-rentals/my-rentals.component';
 import { SignupComponent } from './modules/auth/signup/signup.component';
+import { AuthService } from './shared/services/auth.service';
 
 @NgModule({
   declarations: [
