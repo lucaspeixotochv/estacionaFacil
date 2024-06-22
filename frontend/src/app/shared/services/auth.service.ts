@@ -69,11 +69,12 @@ export class AuthService {
 
   getUserId(): string {
     const decodedToken = this.getDecodedToken();
-    return decodedToken.sub;
+
+    return decodedToken ? decodedToken.sub : '';
   }
 
   getUserRole(): string {
     const decodedToken = this.getDecodedToken();
-    return decodedToken.role;
+    return decodedToken ? decodedToken.role : '';
   }
 }
