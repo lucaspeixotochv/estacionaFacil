@@ -64,12 +64,67 @@ export class AuthService {
       return new ResponseDto('Email ou senha incorretos', false);
     }
 
-    const payload = { sub: user.id, name: user.name };
+    const payload = { sub: user.id, name: user.name, role: user.role_id };
 
     const access_token = await this.jwtService.signAsync(payload);
 
     return new ResponseDto('Usuário logado com sucesso', true, {
       access_token,
     });
+  }
+
+  async user(currentUserId: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: currentUserId,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role_id: true,
+      },
+    });
+
+    return new ResponseDto('Usuário encontrado com sucesso', true, user);
+  }
+
+  async updateUser(currentUserId: string, body: any) {
+    const { name, email, password } = body;
+
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: currentUserId,
+      },
+    });
+
+    if (!user) {
+      return new ResponseDto('Usuário não encontrado', false);
+    }
+
+    const updateData: any = {};
+
+    if (name) {
+      updateData.name = name;
+    }
+
+    if (email) {
+      updateData.email = email;
+    }
+
+    if (password) {
+      const saltOrRounds = 12;
+      const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+      updateData.password = hashedPassword;
+    }
+
+    const updatedUser = await this.prismaService.user.update({
+      where: {
+        id: currentUserId,
+      },
+      data: updateData,
+    });
+
+    return new ResponseDto('Usuário atualizado com sucesso', true, updatedUser);
   }
 }

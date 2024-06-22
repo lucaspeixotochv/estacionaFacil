@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Car } from 'src/app/shared/@types/car.interface';
+import { ReservationService } from 'src/app/shared/services/reservation.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
@@ -20,7 +22,12 @@ export class PaymentComponent implements OnInit {
 
   showCardFlag = false;
 
-  constructor(private fb: FormBuilder, private toastService: ToastService) {
+  constructor(
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private reservationService: ReservationService,
+    private router: Router
+  ) {
     this.pagamentoForm.controls['numeroCartao'].valueChanges.subscribe(
       (value) => {
         if (value.length > 4) {
@@ -48,18 +55,31 @@ export class PaymentComponent implements OnInit {
     return differenceInTime / (1000 * 3600 * 24);
   }
 
-  pagar(): void {
-    // this.toastService.showError('Pagamento efetuado com sucesso!');
-    this.toastService.showSuccess('Pagamento efetuado com sucesso!');
-    if (this.pagamentoForm.valid) {
-      // Implemente aqui a lógica para processar o pagamento
-      const pagamentoInfo = this.pagamentoForm.value;
-      console.log('Pagamento efetuado:', pagamentoInfo);
+  async pay() {
+    try {
+      const body = {
+        cardNumber: this.pagamentoForm.value.numeroCartao,
+        cvv: this.pagamentoForm.value.cvv,
+        expiryDate: this.pagamentoForm.value.dataExpiracao,
+        car_id: this.car.id,
+        startDate: this.informations.startDate,
+        endDate: this.informations.returnDate,
+        price: this.car.price,
+      };
 
-      // Aqui você pode adicionar a lógica para redirecionar o usuário ou exibir uma mensagem de confirmação
-    } else {
-      // Caso o formulário não seja válido, você pode tratar os campos inválidos, se necessário
-      console.error('Formulário inválido. Verifique os campos.');
+      const response = await this.reservationService.createReservation(body);
+
+      if (!response.success) {
+        this.toastService.showError(response.message);
+        return;
+      }
+
+      this.toastService.showSuccess('Pagamento efetuado com sucesso');
+
+      this.router.navigate(['/my-rentals']);
+    } catch (error) {
+      this.toastService.showError('Erro ao efetuar pagamento');
+      console.log(error);
     }
   }
 }

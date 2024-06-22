@@ -32,6 +32,13 @@ import {
 } from '@angular/material/core';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatIconModule } from '@angular/material/icon';
+import { EditInformationsComponent } from './modules/auth/edit-informations/edit-informations.component';
+import { ReservationService } from './shared/services/reservation.service';
+import { CardCarroAdminComponent } from './components/card-carro-admin/card-carro-admin.component';
+import { CarsAdminComponent } from './modules/cars-admin/cars-admin.component';
+import { CarCreateModalComponent } from './components/car-create-modal/car-create-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { CarEditModalComponent } from './components/car-edit-modal/car-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +53,11 @@ import { MatIconModule } from '@angular/material/icon';
     PaymentComponent,
     MyRentalsComponent,
     SignupComponent,
+    EditInformationsComponent,
+    CardCarroAdminComponent,
+    CarsAdminComponent,
+    CarCreateModalComponent,
+    CarEditModalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -62,12 +74,14 @@ import { MatIconModule } from '@angular/material/icon';
     MatDatepickerModule,
     MatNativeDateModule,
     MatIconModule,
+    MatDialogModule,
   ],
   providers: [
     provideNgxMask(),
     ToastService,
     CarService,
     AuthService,
+    ReservationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

@@ -3,7 +3,7 @@
 
   <app-card-carro [car]="car" [seeDetailsBtn]="false"></app-card-carro>
 
-  <form [formGroup]="pagamentoForm" (ngSubmit)="pagar()">
+  <form [formGroup]="pagamentoForm" (ngSubmit)="pay()">
     <mat-form-field class="w-full">
       <mat-label>Número do Cartão</mat-label>
       <input

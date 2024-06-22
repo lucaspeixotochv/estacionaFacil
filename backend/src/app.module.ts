@@ -4,9 +4,10 @@ import { CarModule } from './modules/car/car.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthGuard } from './modules/auth/auth.guard';
 import { APP_GUARD } from '@nestjs/core';
+import { ReservationModule } from './modules/reservation/reservation.module';
 
 @Module({
-  imports: [CarModule, AuthModule],
+  imports: [CarModule, AuthModule, ReservationModule],
   controllers: [],
   providers: [
     PrismaService,

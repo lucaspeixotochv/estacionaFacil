@@ -43,6 +43,8 @@ export class LoginComponent implements OnInit {
       }
 
       this.toastService.showSuccess('Login efetuado com sucesso');
+
+      this.router.navigate(['/']);
     } catch (error) {
       this.toastService.showError('Erro ao fazer login');
       console.log(error);

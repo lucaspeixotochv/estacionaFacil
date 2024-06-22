@@ -30,58 +30,75 @@ Estaciona Fácil é um sistema de gerenciamento de aluguel de carros. Ele permit
 
 1. Navegue até o diretório do backend:
 
-    ```sh
-    cd backend
-    ```
+   ```sh
+   cd backend
+   ```
 
 2. Instale as dependências:
 
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
+
+3. Crie um arquivo .env no diretório backend
+
+   No arquivo coloque
+
+   ```sh
+   DATABASE_URL="file:./database.db"
+   ```
 
 4. Execute as migrações do banco de dados (se houver):
 
-    ```sh
-    npx prisma db push && npx prisma generate
-    ```
+   ```sh
+   npx prisma db push
+   ```
+
+   Logo após execute
+
+   ```sh
+   npx prisma generate
+   ```
 
 5. Inicie o servidor:
 
-    ```sh
-    npm run start:dev
-    ```
+   ```sh
+   npm run start:dev
+   ```
 
 ### Frontend (Angular)
 
 1. Navegue até o diretório do frontend:
 
-    ```sh
-    cd frontend
-    ```
+   ```sh
+   cd frontend
+   ```
 
 2. Instale as dependências:
 
-    ```sh
-    npm install
-    ```
+   ```sh
+   npm install
+   ```
 
 3. Configure a URL da API no arquivo `src/environments/environment.ts`:
 
-    ```typescript
-    export const environment = {
-      production: false,
-      apiUrl: 'http://localhost:3000/api'
-    };
-    ```
+   ```typescript
+   export const environment = {
+     apiUrl: "http://localhost:3000/api",
+   };
+   ```
 
 4. Inicie o servidor de desenvolvimento:
 
-    ```sh
-    ng serve
-    ```
+   ```sh
+   npm run start
+   ```
 
 5. Abra o navegador e acesse `http://localhost:4200`.
+
+## Desenvolvido por:
+
+Lucas Peixoto Chaves
 
 ## Licença
 

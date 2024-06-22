@@ -1,0 +1,16 @@
+<section class="container mx-auto px-4 py-8">
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl font-bold mb-4">Carros - Administração</h2>
+    <button mat-raised-button color="primary" (click)="openCreateCarModal()">
+      Adicionar Carro
+    </button>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <app-card-carro-admin
+      *ngFor="let car of cars"
+      [car]="car"
+      (deletedCar)="deletedCar($event)"
+      (editedCar)="editedCar($event)"
+    ></app-card-carro-admin>
+  </div>
+</section>

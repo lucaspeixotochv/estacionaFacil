@@ -1,0 +1,96 @@
+<h1 mat-dialog-title>Editar Carro</h1>
+<div mat-dialog-content>
+  <form [formGroup]="carForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="full-width">
+      <mat-label>Marca</mat-label>
+      <input matInput formControlName="brand" />
+      <mat-error
+        *ngIf="carForm.get('brand')?.invalid && carForm.get('brand')?.touched"
+      >
+        Marca é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Ano</mat-label>
+      <input matInput formControlName="year" />
+      <mat-error
+        *ngIf="carForm.get('year')?.invalid && carForm.get('year')?.touched"
+      >
+        Ano é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error
+        *ngIf="carForm.get('name')?.invalid && carForm.get('name')?.touched"
+      >
+        Nome é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Cor</mat-label>
+      <input matInput formControlName="color" />
+      <mat-error
+        *ngIf="carForm.get('color')?.invalid && carForm.get('color')?.touched"
+      >
+        Cor é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Placa</mat-label>
+      <input matInput formControlName="license_plate" />
+      <mat-error
+        *ngIf="
+          carForm.get('license_plate')?.invalid &&
+          carForm.get('license_plate')?.touched
+        "
+      >
+        Placa é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Preço</mat-label>
+      <input matInput type="number" formControlName="price" />
+      <mat-error
+        *ngIf="carForm.get('price')?.invalid && carForm.get('price')?.touched"
+      >
+        Preço é obrigatório e deve ser um número positivo
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Imagem</mat-label>
+      <input matInput formControlName="image" />
+      <mat-error
+        *ngIf="carForm.get('image')?.invalid && carForm.get('image')?.touched"
+      >
+        Imagem é obrigatória
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Descrição</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error
+        *ngIf="
+          carForm.get('description')?.invalid &&
+          carForm.get('description')?.touched
+        "
+      >
+        Descrição é obrigatória
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button [disabled]="carForm.invalid" (click)="onSubmit()">
+    Salvar
+  </button>
+</div>

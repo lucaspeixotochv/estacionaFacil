@@ -3,13 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { CarService } from './car.service';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
+import { IsPublic } from 'src/shared/decorators/public.decorator';
 
 @Controller('car')
 export class CarController {
@@ -21,22 +22,18 @@ export class CarController {
   }
 
   @Get()
+  @IsPublic()
   findAll() {
     return this.carService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.carService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
-    return this.carService.update(+id, updateCarDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.carService.remove(id);
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateCarDto: UpdateCarDto) {
+    return this.carService.update(id, updateCarDto);
   }
 }

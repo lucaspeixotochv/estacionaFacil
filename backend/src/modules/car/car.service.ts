@@ -43,11 +43,17 @@ export class CarService {
     return `This action returns a #${id} car`;
   }
 
-  update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
-  }
-
   async remove(id: string) {
+    const carHasReservations = await this.prismaService.reservation.findFirst({
+      where: {
+        car_id: id,
+      },
+    });
+
+    if (carHasReservations) {
+      return new ResponseDto('Carro possui reservas', false);
+    }
+
     const car = await this.prismaService.car.delete({
       where: {
         id,
@@ -59,5 +65,29 @@ export class CarService {
     }
 
     return new ResponseDto('Carro deletado com sucesso', true, car);
+  }
+
+  async update(id: string, updateCarDto: UpdateCarDto) {
+    const car = await this.prismaService.car.update({
+      where: {
+        id,
+      },
+      data: {
+        brand: updateCarDto.brand,
+        color: updateCarDto.color,
+        license_plate: updateCarDto.license_plate,
+        name: updateCarDto.name,
+        price: updateCarDto.price,
+        year: updateCarDto.year,
+        image: updateCarDto.image,
+        description: updateCarDto.description,
+      },
+    });
+
+    if (!car) {
+      return new ResponseDto('Carro não encontrado', false);
+    }
+
+    return new ResponseDto('Carro atualizado com sucesso', true, car);
   }
 }

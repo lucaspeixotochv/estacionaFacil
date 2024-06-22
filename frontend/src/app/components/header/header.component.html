@@ -1,17 +1,50 @@
-<header class="bg-white px-8 py-4 shadow-md flex items-center justify-between">
-  <div class="flex items-center gap-8">
-    <a routerLink="/" class="text-2xl font-bold">Aluga Fácil</a>
-
-    <div class="flex items-center gap-4">
-      <a
-        [routerLink]="'/' + item.route"
-        class=""
-        *ngFor="let item of menu"
-        class="hover:border-b-2 border-blue-500"
-        >{{ item.name }}</a
-      >
+<header class="bg-white px-8 py-4 shadow-md">
+  <div
+    *ngIf="authService.isAuthenticated()"
+    class="flex items-center justify-between"
+  >
+    <div class="flex items-center gap-8">
+      <a routerLink="/" class="text-2xl font-bold">Aluga Fácil</a>
+      <div class="flex items-center gap-4">
+        <a
+          [routerLink]="'/' + item.route"
+          class=""
+          *ngFor="let item of menu"
+          class="hover:border-b-2 border-blue-500"
+          >{{ item.name }}</a
+        >
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button mat-flat-button color="primary" routerLink="/edit-informations">
+        <mat-icon> edit </mat-icon>
+        Editar Conta
+      </button>
+      <button mat-flat-button color="primary" (click)="authService.logout()">
+        <mat-icon>logout</mat-icon>
+        Sair da Conta
+      </button>
     </div>
   </div>
+  <div
+    *ngIf="!authService.isAuthenticated()"
+    class="flex items-center justify-between"
+  >
+    <div class="flex items-center gap-8">
+      <a routerLink="/" class="text-2xl font-bold">Aluga Fácil</a>
 
-  <a routerLink="/login" class="text-blue-500">Entrar Agora</a>
+      <div class="flex items-center gap-4">
+        <a
+          [routerLink]="'/' + item.route"
+          class=""
+          *ngFor="let item of menu"
+          class="hover:border-b-2 border-blue-500"
+          >{{ item.name }}</a
+        >
+      </div>
+    </div>
+    <div>
+      <a routerLink="/login" class="text-blue-500">Entrar Agora</a>
+    </div>
+  </div>
 </header>
